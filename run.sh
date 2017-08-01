@@ -22,7 +22,7 @@ git clone $URL
 #expect "password: "
 #send "$API_TOKEN"
 
-cd ./$REPO
+cd ./$REPO/_support
 git pull
 
 npm install
