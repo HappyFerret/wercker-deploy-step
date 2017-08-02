@@ -4,7 +4,7 @@ GITHUB_USERNAME="localheroesbot"
 GITHUB_ACCOUNT="HappyFerret"
 SERVICE_TO_DEPLOY="martell"
 TARGET_ENVIRONMENT="qa"
-WERCKER_UPDATE_TERRAFORM_COMMIT_HASH="bbb22222b33eeqqqrrr333bb44443333bbbbbbccccccb"
+WERCKER_UPDATE_TERRAFORM_COMMIT_HASH="bbb22222b3eee3eeqqqrrr333bb444ssss43333bbbbbbccccccb"
 
 set -e
 
@@ -17,7 +17,6 @@ COMMIT_HASH="$WERCKER_UPDATE_TERRAFORM_COMMIT_HASH"
 
 URL="https://$USER:$API_TOKEN@github.com/$GITHUB_ACCOUNT/$REPO.git"
 
-rm -rf $REPO
 git clone $URL $REPO
 cd ./$REPO/_support
 
@@ -44,5 +43,5 @@ git add ../$ENVIRONMENT/service-versions.tf
 git commit -m "Deploying $SERVICE to $ENVIRONMENT ($COMMIT_HASH)" 
 git push "https://$USER@github.com/$GITHUB_ACCOUNT/$REPO.git"
 
-# ON ERROR DELETE $REPO
-rm -rf ./$REPO
+cd ../../
+rm -rf $REPO
