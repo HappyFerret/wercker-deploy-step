@@ -23,6 +23,7 @@ git pull
 yarn
 node deploy.js $SERVICE $ENVIRONMENT $COMMIT_HASH
 
+git config push.default simple
 git config user.name $USER
 git config user.email $USER_EMAIL
 git add ../$ENVIRONMENT/service-versions.tf
