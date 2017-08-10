@@ -1,6 +1,5 @@
+#!/usr/bin/env bash
 set -e
-
-COMMIT_HASH="$WERCKER_UPDATE_TERRAFORM_COMMIT_HASH"
 
 URL="https://$$GITHUB_USERNAME:$API_TOKEN@github.com/$GITHUB_ACCOUNT/$TERRAFORM_REPOSITORY_NAME.git"
 
@@ -15,15 +14,15 @@ git pull
 ######
 
 yarn
-node deploy.js $SERVICE_TO_DEPLOY $TARGET_ENVIRONMENT $COMMIT_HASH
+node deploy.js $SERVICE_TO_DEPLOY $TARGET_ENVIRONMENT $WERCKER_GIT_COMMIT
 
 git config push.default simple
 git config user.name $$GITHUB_USERNAME
 git config user.email $GITHUB_EMAIL
 git add ../$TARGET_ENVIRONMENT/service-versions.tf
 
-git commit -m "Deploying $SERVICE_TO_DEPLOY to $TARGET_ENVIRONMENT ($COMMIT_HASH)"
-git push "https://$$GITHUB_USERNAME:$API_TOKEN@github.com/$GITHUB_ACCOUNT/$TERRAFORM_REPOSITORY_NAME.git"
+git commit -m "Deploying $SERVICE_TO_DEPLOY to $TARGET_ENVIRONMENT ($WERCKER_GIT_COMMIT)"
+git push "https://$GITHUB_USERNAME:$API_TOKEN@github.com/$GITHUB_ACCOUNT/$TERRAFORM_REPOSITORY_NAME.git"
 
 cd ../../
 rm -rf $TERRAFORM_REPOSITORY_NAME
