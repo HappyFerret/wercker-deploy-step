@@ -29,7 +29,7 @@ git config user.email $USER_EMAIL
 git add ../$ENVIRONMENT/service-versions.tf
 
 git commit -m "Deploying $SERVICE to $ENVIRONMENT ($COMMIT_HASH)" 
-git push "https://$USER@github.com/$GITHUB_ACCOUNT/$REPO.git"
+git push "https://$USER:$API_TOKEN@github.com/$GITHUB_ACCOUNT/$REPO.git"
 
 cd ../../
 rm -rf $REPO
