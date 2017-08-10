@@ -1,17 +1,11 @@
 set -e
 
-# Environment variables
-REPO="$TERRAFORM_REPOSITORY_NAME"
-USER="$GITHUB_USERNAME"
-USER_EMAIL="$GITHUB_EMAIL"
-SERVICE="$SERVICE_TO_DEPLOY"
-ENVIRONMENT="$TARGET_ENVIRONMENT"
 COMMIT_HASH="$WERCKER_UPDATE_TERRAFORM_COMMIT_HASH"
 
-URL="https://$USER:$API_TOKEN@github.com/$GITHUB_ACCOUNT/$REPO.git"
+URL="https://$$GITHUB_USERNAME:$API_TOKEN@github.com/$GITHUB_ACCOUNT/$TERRAFORM_REPOSITORY_NAME.git"
 
-git clone $URL $REPO
-cd ./$REPO/_support
+git clone $URL $TERRAFORM_REPOSITORY_NAME
+cd ./$TERRAFORM_REPOSITORY_NAME/_support
 git pull
 
 ######
@@ -21,15 +15,15 @@ git pull
 ######
 
 yarn
-node deploy.js $SERVICE $ENVIRONMENT $COMMIT_HASH
+node deploy.js $SERVICE_TO_DEPLOY $TARGET_ENVIRONMENT $COMMIT_HASH
 
 git config push.default simple
-git config user.name $USER
-git config user.email $USER_EMAIL
-git add ../$ENVIRONMENT/service-versions.tf
+git config user.name $$GITHUB_USERNAME
+git config user.email $GITHUB_EMAIL
+git add ../$TARGET_ENVIRONMENT/service-versions.tf
 
-git commit -m "Deploying $SERVICE to $ENVIRONMENT ($COMMIT_HASH)" 
-git push "https://$USER:$API_TOKEN@github.com/$GITHUB_ACCOUNT/$REPO.git"
+git commit -m "Deploying $SERVICE_TO_DEPLOY to $TARGET_ENVIRONMENT ($COMMIT_HASH)"
+git push "https://$$GITHUB_USERNAME:$API_TOKEN@github.com/$GITHUB_ACCOUNT/$TERRAFORM_REPOSITORY_NAME.git"
 
 cd ../../
-rm -rf $REPO
+rm -rf $TERRAFORM_REPOSITORY_NAME
