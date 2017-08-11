@@ -7,12 +7,6 @@ git clone $URL $TERRAFORM_REPOSITORY_NAME
 cd ./$TERRAFORM_REPOSITORY_NAME/_support
 git pull
 
-######
-#Temporary step so we don't push directly to master
-git checkout feat/lh-799-auto-deploy-update
-git pull
-######
-
 yarn
 node deploy.js $SERVICE_TO_DEPLOY $TARGET_ENVIRONMENT $WERCKER_GIT_COMMIT
 
