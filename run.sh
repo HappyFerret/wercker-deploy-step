@@ -4,8 +4,6 @@ set -e
 URL="https://$GITHUB_USERNAME:$API_TOKEN@github.com/$GITHUB_ACCOUNT/$TERRAFORM_REPOSITORY_NAME.git"
 
 git clone $URL $TERRAFORM_REPOSITORY_NAME
-#git checkout $BRANCH
-echo $BRANCH
 cd ./$TERRAFORM_REPOSITORY_NAME/_support
 git pull
 
