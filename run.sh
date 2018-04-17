@@ -3,7 +3,7 @@ set -e
 
 URL="https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/$GITHUB_ACCOUNT/$TERRAFORM_REPOSITORY_NAME.git"
 
-git clone $URL $TERRAFORM_REPOSITORY_NAME
+git clone $URL
 cd ./$TERRAFORM_REPOSITORY_NAME/_support
 git pull
 
@@ -16,7 +16,7 @@ git config user.email $GITHUB_EMAIL
 git add ../$TARGET_ENVIRONMENT/service-versions.tf
 
 git commit -m "Deploying $SERVICE_TO_DEPLOY to $TARGET_ENVIRONMENT ($WERCKER_GIT_COMMIT)"
-git push "https://$GITHUB_USERNAME:$API_TOKEN@github.com/$GITHUB_ACCOUNT/$TERRAFORM_REPOSITORY_NAME.git"
+git push $URL
 
 cd ../../
 rm -rf $TERRAFORM_REPOSITORY_NAME
