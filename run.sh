@@ -1,6 +1,21 @@
 #!/usr/bin/env bash
 set -e
 
+GITHUB_USERNAME=localheroesbot
+GITHUB_ACCOUNT=HappyFerret
+TERRAFORM_REPOSITORY_NAME=infrastructure-terraform
+GITHUB_EMAIL=devteam@localheroes.com
+
+if [ -z "$GITHUB_TOKEN" ]; then
+    echo "Missing GITHUB_TOKEN env var."
+    exit 1;
+fi
+
+if [ -z "$SERVICE_TO_DEPLOY" ]; then
+    echo "Missing SERVICE_TO_DEPLOY env var."
+    exit 1;
+fi
+
 URL="https://$GITHUB_USERNAME:$GITHUB_TOKEN@github.com/$GITHUB_ACCOUNT/$TERRAFORM_REPOSITORY_NAME.git"
 
 git clone $URL $TERRAFORM_REPOSITORY_NAME
