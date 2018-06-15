@@ -28,10 +28,13 @@ node deploy.js $SERVICE_TO_DEPLOY $TARGET_ENVIRONMENT $CI_COMMIT_ID
 git config push.default simple
 git config user.name $GITHUB_USERNAME
 git config user.email $GITHUB_EMAIL
-git add ../$TARGET_ENVIRONMENT/service-versions.tf
 
-git commit -m "Deploying $SERVICE_TO_DEPLOY to $TARGET_ENVIRONMENT ($CI_COMMIT_ID)"
-git push $URL
+if [[ ! -z $(git status -s) ]]; then
+	git add ../$TARGET_ENVIRONMENT/service-versions.tf
+
+	git commit -m "Deploying $SERVICE_TO_DEPLOY to $TARGET_ENVIRONMENT ($CI_COMMIT_ID)"
+	git push $URL
+fi
 
 cd ../../
 rm -rf $TERRAFORM_REPOSITORY_NAME
