@@ -3,7 +3,7 @@ set -e
 
 GITHUB_USERNAME=localheroesbot
 GITHUB_ACCOUNT=HappyFerret
-TERRAFORM_REPOSITORY_NAME=infrastructure-terraform
+TERRAFORM_REPOSITORY_NAME=${TERRAFORM_REPOSITORY:-infrastructure-terraform} # use env var TERRAFORM_REPOSITORY if exists, default to infrastructure-terraform
 GITHUB_EMAIL=devteam@localheroes.com
 
 if [ -z "$GITHUB_TOKEN" ]; then
