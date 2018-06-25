@@ -1,3 +1,0 @@
-name: update-terraform
-version: 0.9.2
-description: Checks out, updates and commits a service version hash to a Terraform file
